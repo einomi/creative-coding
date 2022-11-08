@@ -1,1 +1,1 @@
-import './modules/sketching';
+import './modules/sketching-p5';
