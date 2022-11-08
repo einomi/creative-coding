@@ -20,6 +20,7 @@ p.preload = function () {
 };
 
 p.setup = function () {
+  p.createCanvas(img.width, img.height);
   for (let col = 0; col < img.width; col += 10) {
     for (let row = 0; row < img.height; row += 10) {
       const cell = img.get(col, row);
