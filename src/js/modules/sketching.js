@@ -4,6 +4,50 @@ import canvasSketch from 'canvas-sketch';
 import random from 'canvas-sketch-util/random';
 
 import Bird from './bird';
+import { createAudio } from './audio';
+
+const audioEl = createAudio();
+
+let isPlaying = false;
+
+/** @type {any[]} */
+const timeouts = [];
+
+function fadeVolume(out = false) {
+  timeouts.forEach((id) => {
+    clearTimeout(id);
+  });
+  audioEl.volume = out ? 1 : 0;
+  new Array(100).fill(null).forEach((_, index) => {
+    const timeoutId = setTimeout(() => {
+      audioEl.volume = (out ? 99 - index : index) / 100;
+    }, 10);
+    timeouts.push(timeoutId);
+  });
+}
+
+function play() {
+  if (isPlaying) {
+    return;
+  }
+  isPlaying = true;
+  if (audioEl.paused) {
+    audioEl.play();
+  }
+  fadeVolume();
+}
+
+function pause() {
+  if (!isPlaying) {
+    return;
+  }
+  isPlaying = false;
+  fadeVolume(true);
+}
+
+function onAudioPlay() {
+  // play();
+}
 
 const settings = {
   dimensions: [1080, 1080],
@@ -25,6 +69,14 @@ function sketch({ context, canvas, width, height }) {
   const cursor = { x: 9999, y: 9999 };
 
   canvas.addEventListener('mousemove', onMouseMove);
+
+  canvas.addEventListener('mouseenter', () => {
+    play();
+  });
+
+  canvas.addEventListener('mouseleave', () => {
+    pause();
+  });
 
   /** @param {MouseEvent} event */
   function onMouseMove(event) {
@@ -59,7 +111,15 @@ function sketch({ context, canvas, width, height }) {
       const x = Math.cos(theta) * circleRadius + width / 2;
       const y = Math.sin(theta) * circleRadius + height / 2;
 
-      birds.push(new Bird({ x, y, context, cursor }));
+      birds.push(
+        new Bird({
+          x,
+          y,
+          context,
+          cursor,
+          onAudioPlay,
+        })
+      );
     }
 
     circleRadius += 90;

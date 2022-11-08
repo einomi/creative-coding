@@ -6,13 +6,15 @@ import random from 'canvas-sketch-util/random';
  * @property {number} y
  * @property {{x: number; y: number}} cursor
  * @property {CanvasRenderingContext2D} context
+ * @property {Function} onAudioPlay
  *  */
 
 class Bird {
   /** @param {Params} params */
-  constructor({ x, y, context, cursor }) {
+  constructor({ x, y, context, cursor, onAudioPlay }) {
     this.context = context;
     this.cursor = cursor;
+    this.onAudioPlay = onAudioPlay;
 
     // const x = random.range(width * 0.2, width * 0.8);
     // const y = random.range(height * 0.2, height * 0.8);
@@ -79,6 +81,7 @@ class Bird {
     const distDelta = this.minDist - dd;
 
     if (dd < this.minDist) {
+      this.onAudioPlay();
       this.ax += (dx / dd) * distDelta * this.pushFactor;
       this.ay += (dy / dd) * distDelta * this.pushFactor;
     }
