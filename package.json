@@ -46,6 +46,8 @@
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
     "babel-plugin-module-resolver": "^4.1.0",
+    "canvas-sketch": "^0.7.6",
+    "canvas-sketch-util": "^1.10.0",
     "chalk": "^4.1.0",
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.0",

@@ -16,7 +16,12 @@
     "resolveJsonModule": true,
     "watch": true,
     "lib": ["dom", "es2017"],
-    "noEmit": true
+    "noEmit": true,
+    "paths": {
+      "canvas-sketch": ["node_modules/canvas-sketch-types/canvas-sketch"],
+      "canvas-sketch/*": ["node_modules/canvas-sketch-types/canvas-sketch/*"]
+    },
+    "esModuleInterop": true
   },
   "include": ["src"],
   "exclude": [
