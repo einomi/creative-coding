@@ -9,21 +9,25 @@ import { createAudio } from './audio';
 const audioEl = createAudio();
 
 let isPlaying = false;
+let isFadingOut = false;
 
-/** @type {any[]} */
-const timeouts = [];
-
-function fadeVolume(out = false) {
-  timeouts.forEach((id) => {
-    clearTimeout(id);
-  });
-  audioEl.volume = out ? 1 : 0;
-  new Array(100).fill(null).forEach((_, index) => {
-    const timeoutId = setTimeout(() => {
-      audioEl.volume = (out ? 99 - index : index) / 100;
-    }, 10);
-    timeouts.push(timeoutId);
-  });
+function fadeVolume(isOut = false) {
+  if (isFadingOut) {
+    return;
+  }
+  isFadingOut = isOut;
+  audioEl.volume = isOut ? 1 : 0;
+  const intervalId = setInterval(() => {
+    audioEl.volume = Number(
+      (isOut ? audioEl.volume - 0.05 : audioEl.volume + 0.05).toFixed(2)
+    );
+    if (audioEl.volume === 0 && isOut) {
+      isFadingOut = false;
+    }
+    if (audioEl.volume === (isOut ? 0 : 1)) {
+      clearInterval(intervalId);
+    }
+  }, 20);
 }
 
 function play() {
@@ -43,10 +47,6 @@ function pause() {
   }
   isPlaying = false;
   fadeVolume(true);
-}
-
-function onAudioPlay() {
-  // play();
 }
 
 const settings = {
@@ -117,7 +117,6 @@ function sketch({ context, canvas, width, height }) {
           y,
           context,
           cursor,
-          onAudioPlay,
         })
       );
     }
