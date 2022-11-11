@@ -21,7 +21,7 @@ function fadeVolume(out = false) {
   new Array(100).fill(null).forEach((_, index) => {
     const timeoutId = setTimeout(() => {
       audioEl.volume = (out ? 99 - index : index) / 100;
-    }, 10);
+    }, 50);
     timeouts.push(timeoutId);
   });
 }

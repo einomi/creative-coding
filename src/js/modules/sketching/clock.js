@@ -1,5 +1,5 @@
 // @ts-ignore
-import { Q5 } from './q5';
+import { Q5 } from '../q5';
 
 /** @type {import("p5")} */
 // @ts-ignore
