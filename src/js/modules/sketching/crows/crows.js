@@ -9,21 +9,16 @@ import { createAudio } from './audio';
 const audioEl = createAudio();
 
 let isPlaying = false;
-let isFadingOut = false;
+/** @type {Timer} */
+let intervalId;
 
 function fadeVolume(isOut = false) {
-  if (isFadingOut) {
-    return;
-  }
-  isFadingOut = isOut;
+  clearInterval(intervalId);
   audioEl.volume = isOut ? 1 : 0;
-  const intervalId = setInterval(() => {
+  intervalId = setInterval(() => {
     audioEl.volume = Number(
       (isOut ? audioEl.volume - 0.05 : audioEl.volume + 0.05).toFixed(2)
     );
-    if (audioEl.volume === 0 && isOut) {
-      isFadingOut = false;
-    }
     if (audioEl.volume === (isOut ? 0 : 1)) {
       clearInterval(intervalId);
     }
@@ -50,7 +45,8 @@ function pause() {
 }
 
 const settings = {
-  dimensions: [1080, 1080],
+  dimensions: [window.innerWidth, window.innerHeight],
+  styleCanvas: false,
   playbackRate: 'throttle',
   animate: true,
   fps: 20,
@@ -70,12 +66,14 @@ function sketch({ context, canvas, width, height }) {
 
   canvas.addEventListener('mousemove', onMouseMove);
 
-  canvas.addEventListener('mouseenter', () => {
-    play();
+  document.addEventListener('mouseleave', () => {
+    pause();
   });
 
-  canvas.addEventListener('mouseleave', () => {
-    pause();
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      pause();
+    }
   });
 
   /** @param {MouseEvent} event */
@@ -85,6 +83,15 @@ function sketch({ context, canvas, width, height }) {
 
     cursor.x = x;
     cursor.y = y;
+
+    if (
+      x > (canvas.offsetWidth - canvas.offsetHeight) / 2 &&
+      x < (canvas.offsetWidth - canvas.offsetHeight) / 2 + canvas.offsetHeight
+    ) {
+      play();
+    } else {
+      pause();
+    }
   }
 
   /** @type {Bird[]} */

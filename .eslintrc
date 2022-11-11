@@ -6,5 +6,8 @@
     "commonjs": true
   },
   "extends": ["plugin:sonarjs/recommended", "@frontenso/javascript"],
-  "plugins": ["sonarjs"]
+  "plugins": ["sonarjs"],
+  "rules": {
+    "id-length": "off"
+  }
 }

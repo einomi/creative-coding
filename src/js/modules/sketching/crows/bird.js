@@ -31,7 +31,7 @@ class Bird {
     this.vy = 0;
 
     this.minDist = 200;
-    this.pushFactor = random.range(0.05, 0.08);
+    this.pushFactor = random.range(0.15, 0.35);
     this.pullFactor = random.range(0.01, 0.02);
     this.dampFactor = random.range(0.9, 0.95);
   }
