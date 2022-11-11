@@ -84,9 +84,12 @@ function sketch({ context, canvas, width, height }) {
     cursor.x = x;
     cursor.y = y;
 
+    const maxSideLength = Math.max(canvas.offsetWidth, canvas.offsetHeight);
+    const minSideLength = Math.min(canvas.offsetWidth, canvas.offsetHeight);
+
     if (
-      x > (canvas.offsetWidth - canvas.offsetHeight) / 2 &&
-      x < (canvas.offsetWidth - canvas.offsetHeight) / 2 + canvas.offsetHeight
+      x > (maxSideLength - minSideLength) / 2 &&
+      x < (maxSideLength - minSideLength) / 2 + minSideLength
     ) {
       play();
     } else {
