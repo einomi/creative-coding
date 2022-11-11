@@ -51,12 +51,12 @@ canvas {
 }
 
 .page-center {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  display: none;
   width: 95vh;
   height: 90vh;
-  position: absolute;
-  left: 50%;
-  top: 50%;
   transform: translate(-50%, -50%);
-  z-index: 1;
-  display: none;
 }
