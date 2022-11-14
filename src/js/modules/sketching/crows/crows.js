@@ -9,7 +9,7 @@ import { createAudio } from './audio';
 const audioEl = createAudio();
 
 let isPlaying = false;
-/** @type {Timer} */
+/** @type {ReturnType<typeof setInterval>} */
 let intervalId;
 
 function fadeVolume(isOut = false) {
