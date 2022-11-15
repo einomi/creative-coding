@@ -15,21 +15,27 @@ const p = new Q5();
 p.setup = function () {
   p.createCanvas(window.innerWidth, window.innerHeight);
   p.strokeWeight(8);
+  p.stroke(0);
 };
 
 let time = 0;
 
 p.draw = function () {
   p.background(255);
-  p.stroke(0);
   const linesCount = 6;
   [...Array(linesCount)].forEach((_, index) => {
-    p.line(
-      p.width / linesCount + index * 200,
-      0,
-      50 + p.width / linesCount + Math.sin(time) * 500,
+    p.beginShape();
+    p.noFill();
+    p.vertex(p.width / linesCount + index * 200, 0);
+    p.vertex(
+      100 + p.width / linesCount + index * 200 + Math.cos(time) * 100,
+      p.height / 2
+    );
+    p.vertex(
+      -150 + p.width / linesCount + index * 200 + Math.sin(time) * 500,
       p.height
     );
+    p.endShape();
   });
 
   time += 0.001;
