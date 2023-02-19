@@ -41,7 +41,7 @@
     "@babel/preset-env": "^7.13.5",
     "@frontenso/eslint-config-javascript": "^0.1.9",
     "@fullhuman/postcss-purgecss": "^4.0.2",
-    "@types/p5": "^1.4.3",
+    "@types/p5": "^1.5.0",
     "ansi-colors": "^4.1.1",
     "autoprefixer": "^10.4.4",
     "babel-eslint": "^10.1.0",

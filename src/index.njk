@@ -1,14 +1,13 @@
 {% extends './_layouts/base.njk' %}
 
-{% from './components/button/button.njk' import button %}
-
-{% block title %}
-  frōntensō-11ty-starter
-{% endblock %}
-
 {% block content %}
-{#  <div class="enter" data-enter>#}
-{#    <button class="enter__button" data-enter-button>Enter</button>#}
-{#  </div>#}
+  <div class="enter" data-enter>
+    <button class="enter__button" data-enter-button>Enter</button>
+  </div>
   <div class="page-center" data-page-center></div>
 {% endblock %}
+
+{% block scripts %}
+  <script src="{{ STATIC_PATH }}/js/crows.js"></script>
+{% endblock %}
+
