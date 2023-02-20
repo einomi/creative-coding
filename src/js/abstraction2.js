@@ -33,14 +33,15 @@ const sketch = /** @param {import("p5")} p */ (p) => {
     const tileSize = 10;
 
     /** @param {number} size */
-    const drawTile = (size) => {
+    const drawTile = (size, x, y) => {
       const noise1 = distribution.ppf(Math.random());
 
       const isHit = noise1 > 1;
 
       if (isHit) {
         p.noStroke();
-        p.fill(p.random(0, 100), p.random(5, 70), p.random(5, 100), 100);
+        const color = p.noise(x * 0.01, y * 0.01, time * 0.01) * 200;
+        p.fill(color, p.random(5, 70), p.random(5, 100), 100);
 
         // draw circle with sin cos, loop and perlin noise
         const circleResolution = 10;
@@ -72,7 +73,7 @@ const sketch = /** @param {import("p5")} p */ (p) => {
         // draw the tile
         p.push();
         p.translate(x, y);
-        drawTile(tileSize);
+        drawTile(tileSize, x, y);
         p.pop();
       }
     }
