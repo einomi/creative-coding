@@ -40,7 +40,7 @@ const sketch = /** @param {import("p5")} p */ (p) => {
 
       if (isHit) {
         p.noStroke();
-        p.fill(50, 35, p.random(5, 100), 100);
+        p.fill(p.random(5, 100), p.random(5, 70), p.random(5, 100), 100);
 
         // draw circle with sin cos, loop and perlin noise
         const circleResolution = 10;
