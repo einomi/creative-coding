@@ -8,6 +8,7 @@ const entryPoints = {
   snow: path.resolve(__dirname, 'src/js/snow.js'),
   abstraction: path.resolve(__dirname, 'src/js/abstraction.js'),
   perlin: path.resolve(__dirname, 'src/js/perlin.js'),
+  abstraction2: path.resolve(__dirname, 'src/js/abstraction2.js'),
 };
 
 module.exports = {
