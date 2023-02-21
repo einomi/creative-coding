@@ -9,6 +9,7 @@ const entryPoints = {
   abstraction: path.resolve(__dirname, 'src/js/abstraction.js'),
   perlin: path.resolve(__dirname, 'src/js/perlin.js'),
   abstraction2: path.resolve(__dirname, 'src/js/abstraction2.js'),
+  abstraction3: path.resolve(__dirname, 'src/js/abstraction3.js'),
 };
 
 module.exports = {
