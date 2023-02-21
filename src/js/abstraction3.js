@@ -2,6 +2,9 @@ import p5 from 'p5';
 
 import Worm from './modules/worm/worm';
 
+/** @type {Worm[]} */
+const worms = [];
+
 const sketch = /** @param {import("p5")} p */ (p) => {
   p.setup = () => {
     p.createCanvas(window.innerWidth, window.innerHeight);
@@ -20,14 +23,7 @@ const sketch = /** @param {import("p5")} p */ (p) => {
     p.drawingContext.scale(dpr, dpr);
     // hsb color mode
     p.colorMode(p.HSB, 360, 100, 100, 100);
-    p.background(0);
 
-    p.noLoop();
-  };
-
-  let time = 0;
-
-  p.draw = () => {
     const tileSize = 100;
 
     /** @param {number} inSize
@@ -36,16 +32,22 @@ const sketch = /** @param {import("p5")} p */ (p) => {
      * */
     const drawTile = (inSize, x, y) => {
       const size = inSize * 0.1;
-      const noise1 = p.randomGaussian(0, 0.5);
+      const noise1 = p.randomGaussian(0, 0.3);
 
-      const isHit = noise1 > 0.3;
+      const isHit = noise1 > 0;
 
       if (isHit) {
         p.noStroke();
-        const color = p.noise(x * 0.01, y * 0.01, time * 0.01) * 200;
 
-        const worm = new Worm(p, size, x, y, color);
-        worm.draw();
+        const hue = p.noise(x * 0.01, y * 0.01, time * 0.05) * 360;
+        const color = p.color(
+          hue,
+          p.random(5, 70),
+          p.random(5, 100),
+          p.random(80, 100)
+        );
+
+        worms.push(new Worm(p, size, x, y, color));
       }
     };
 
@@ -60,7 +62,18 @@ const sketch = /** @param {import("p5")} p */ (p) => {
       }
     }
 
+    // p.noLoop();
+  };
+
+  let time = 0;
+
+  p.draw = () => {
+    p.background(10);
     time += 1;
+
+    worms.forEach((worm) => {
+      worm.draw();
+    });
   };
 };
 
