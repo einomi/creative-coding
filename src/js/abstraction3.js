@@ -31,7 +31,6 @@ const sketch = /** @param {import("p5")} p */ (p) => {
      * @param {number} y
      * */
     const drawTile = (inSize, x, y) => {
-      const size = inSize * 0.1;
       const noise1 = p.randomGaussian(0, 0.3);
 
       const isHit = noise1 > 0;
@@ -43,11 +42,11 @@ const sketch = /** @param {import("p5")} p */ (p) => {
         const color = p.color(
           hue,
           p.random(5, 70),
-          p.random(5, 100),
+          p.random(30, 100),
           p.random(80, 100)
         );
 
-        worms.push(new Worm(p, size, x, y, color));
+        worms.push(new Worm(p, x, y, color));
       }
     };
 
