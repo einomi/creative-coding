@@ -53,8 +53,8 @@ class Brush {
 
     const distance = start.dist(end);
     const direction = end.copy().sub(start).normalize();
-    const normal = direction.copy().rotate(p.HALF_PI);
-    const offset = normal.copy().mult(this.weight / 2);
+    // const normal = direction.copy().rotate(p.HALF_PI);
+    // const offset = normal.copy().mult(this.weight / 2);
     const step = 0.5;
     const steps = distance / step;
     const halfSteps = steps / 2;
@@ -67,6 +67,7 @@ class Brush {
       } else {
         this.dynamicWeight = this.weight - (this.weight * i) / steps;
       }
+
       p.fill(this.color);
       p.stroke(this.color);
       // this.setColor(
@@ -76,9 +77,11 @@ class Brush {
       //     p.brightness(this.color)
       //   )
       // );
-      p.circle(start.x + offset.x, start.y + offset.y, this.dynamicWeight);
+      p.circle(start.x, start.y, this.dynamicWeight);
 
-      start.add(direction.copy().mult(step));
+      start.add(
+        direction.copy().rotate(p.random(-p.HALF_PI, p.HALF_PI)).mult(step)
+      );
     }
 
     p.pop();
