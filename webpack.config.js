@@ -10,7 +10,10 @@ const entryPoints = {
   perlin: path.resolve(__dirname, 'src/js/perlin.js'),
   abstraction2: path.resolve(__dirname, 'src/js/abstraction2.js'),
   abstraction3: path.resolve(__dirname, 'src/js/abstraction3.js'),
-  'brush-test': path.resolve(__dirname, 'src/js/brush-test.js'),
+  'brush-test': path.resolve(
+    __dirname,
+    'src/js/modules/brush-test/brush-test.js'
+  ),
 };
 
 module.exports = {

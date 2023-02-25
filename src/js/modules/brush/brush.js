@@ -11,7 +11,7 @@ class Brush {
   /** @param {import('p5')} p */
   constructor(p) {
     this.p = p;
-    this.weight = p.random(5, 50);
+    this.weight = p.random(5, 100);
     this.dynamicWeight = 0;
     this.color = p.color(0);
     this.alpha = 1;
@@ -52,16 +52,32 @@ class Brush {
     p.push();
 
     const distance = start.dist(end);
-    const direction = end.copy().sub(start).normalize();
     // const normal = direction.copy().rotate(p.HALF_PI);
     // const offset = normal.copy().mult(this.weight / 2);
-    const step = 0.5;
+    const step = 1;
     const steps = distance / step;
     const halfSteps = steps / 2;
 
     this.dynamicWeight = 0;
 
+    // p.bezier(
+    //   start.x,
+    //   start.y,
+    //   this.x2,
+    //   this.y2,
+    //   this.x3,
+    //   this.y3,
+    //   this.x4,
+    //   this.y4
+    // );
+
     for (let i = 0; i < steps; i += 1) {
+      const direction = end.copy().sub(start).normalize();
+      const noise1 = p.noise(i + 1);
+      // const noise2 = p.noise(i);
+      // const direction = p.createVector(noise1, -noise2);
+
+      // making a dynamic weight
       if (i < halfSteps) {
         this.dynamicWeight = (this.weight * i) / steps;
       } else {
@@ -80,7 +96,10 @@ class Brush {
       p.circle(start.x, start.y, this.dynamicWeight);
 
       start.add(
-        direction.copy().rotate(p.random(-p.HALF_PI, p.HALF_PI)).mult(step)
+        direction
+          .copy()
+          .rotate((p.PI * noise1) / 4)
+          .mult(step)
       );
     }
 
