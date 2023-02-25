@@ -11,7 +11,7 @@ class Brush {
   /** @param {import('p5')} p */
   constructor(p) {
     this.p = p;
-    this.weight = p.random(5, 100);
+    this.weight = p.random(1, 5);
     this.dynamicWeight = 0;
     this.color = p.color(0);
     this.alpha = 1;
@@ -73,13 +73,13 @@ class Brush {
 
     for (let i = 0; i < steps; i += 1) {
       const direction = end.copy().sub(start).normalize();
-      const noise1 = p.noise(i + 1);
+      const noise1 = p.noise(i * 0.1);
       // const noise2 = p.noise(i);
       // const direction = p.createVector(noise1, -noise2);
 
       // making a dynamic weight
       if (i < halfSteps) {
-        this.dynamicWeight = (this.weight * i) / steps;
+        this.dynamicWeight = (this.weight * i * 3) / steps;
       } else {
         this.dynamicWeight = this.weight - (this.weight * i) / steps;
       }

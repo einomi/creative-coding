@@ -5,12 +5,15 @@ import Brush from '../brush/brush';
 const sketch = /** @param {import("p5")} p */ (p) => {
   let shader;
   let screen;
+  let brushTexture;
 
   p.preload = () => {
     shader = p.loadShader(
       '/brush-test/shaders/vertex.glsl',
       '/brush-test/shaders/fragment.glsl'
     );
+
+    brushTexture = p.loadImage('/brush-test/textures/brush.png');
   };
 
   p.setup = () => {
@@ -42,16 +45,19 @@ const sketch = /** @param {import("p5")} p */ (p) => {
   };
 
   function drawScreen() {
-    shader.setUniform('u_texture', screen);
+    shader.setUniform('uTexture', screen);
+    shader.setUniform('uTextureBrush', brushTexture);
     p.rect(0, 0, p.width, p.height);
   }
 
   p.draw = () => {
     screen.background(10);
 
-    for (let i = 0; i < 9; i += 1) {
+    for (let i = 0; i < 90; i += 1) {
       const brush = new Brush(screen);
-      brush.setColor(p.color(p.random(360), 50, 90, p.random(10, 30)));
+      brush.setColor(
+        p.color(p.random(50, 300), p.random(50, 100), 90, p.random(10, 30))
+      );
       brush.makeStroke(
         p.createVector(p.random(0, p.width), p.random(0, p.height)),
         p.createVector(p.random(0, p.width), p.random(0, p.height))
