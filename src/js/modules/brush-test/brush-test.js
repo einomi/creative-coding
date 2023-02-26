@@ -51,16 +51,28 @@ const sketch = /** @param {import("p5")} p */ (p) => {
   }
 
   p.draw = () => {
-    screen.background(10);
+    screen.background(0);
 
-    for (let i = 0; i < 90; i += 1) {
+    const lineCount = 10;
+    const lineGap = 35;
+    const screenOffset = 100;
+
+    for (let i = 0; i < lineCount; i += 1) {
       const brush = new Brush(screen);
       brush.setColor(
-        p.color(p.random(50, 300), p.random(50, 100), 90, p.random(10, 30))
+        p.color(
+          p.random(50, 300),
+          p.random(50, 80),
+          p.random(50, 90),
+          p.random(10, 30)
+        )
       );
       brush.makeStroke(
-        p.createVector(p.random(0, p.width), p.random(0, p.height)),
-        p.createVector(p.random(0, p.width), p.random(0, p.height))
+        p.createVector(screenOffset, screenOffset + i * lineGap),
+        p.createVector(
+          p.width - screenOffset,
+          p.height - screenOffset - lineCount * lineGap + lineGap + i * lineGap
+        )
       );
     }
 
