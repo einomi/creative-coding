@@ -53,19 +53,14 @@ const sketch = /** @param {import("p5")} p */ (p) => {
   p.draw = () => {
     screen.background(0);
 
-    const lineCount = 10;
+    const lineCount = 20;
     const lineGap = 35;
     const screenOffset = 100;
 
     for (let i = 0; i < lineCount; i += 1) {
       const brush = new Brush(screen);
       brush.setColor(
-        p.color(
-          p.random(50, 300),
-          p.random(50, 80),
-          p.random(50, 90),
-          p.random(10, 30)
-        )
+        p.color(p.random(50, 300), 0, p.random(20, 60), p.random(10, 30))
       );
       brush.makeStroke(
         p.createVector(screenOffset, screenOffset + i * lineGap),
@@ -76,7 +71,28 @@ const sketch = /** @param {import("p5")} p */ (p) => {
       );
     }
 
+    for (let i = 0; i < lineCount; i += 1) {
+      const brush = new Brush(screen);
+      brush.setColor(
+        p.color(p.random(50, 300), 0, p.random(20, 60), p.random(10, 30))
+      );
+      brush.makeStroke(
+        p.createVector(p.width - screenOffset, screenOffset + i * lineGap),
+        p.createVector(
+          screenOffset,
+          p.height - screenOffset - lineCount * lineGap + lineGap + i * lineGap
+        )
+      );
+    }
+
     drawScreen();
+  };
+
+  // screenshots
+  p.keyPressed = () => {
+    if (p.key === 's') {
+      p.saveCanvas(p.canvas, 'sketch');
+    }
   };
 };
 

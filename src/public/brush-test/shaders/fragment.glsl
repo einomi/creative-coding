@@ -10,8 +10,8 @@ void main() {
   uv.y = 1.0 - uv.y;
 
   // distort
-  uv.x += sin(uv.y * 30.0) * 0.01 * cos(uv.y * 30.0);
-  uv.y += sin(uv.x * 30.0) * 0.01 * cos(uv.x * 30.0);
+  uv.x += sin(uv.y * 30.0) * 0.05 * cos(uv.y * 30.0);
+  uv.y += sin(uv.x * 30.0) * 0.05 * cos(uv.x * 30.0);
 
   // add the scaled down overlay brush texture
   vec4 brush = texture2D(uTextureBrush, uv);
@@ -21,7 +21,7 @@ void main() {
   vec4 color = texture2D(uTexture, uv);
   // multiply by brush texture
   if (brush.r < 0.5) {
-    color = vec4(vec3(0.05), 1.0);
+    color = vec4(vec3(0.0), 1.0);
   }
 
   gl_FragColor = color;
