@@ -11,7 +11,7 @@ class Brush {
   /** @param {import('p5')} p */
   constructor(p) {
     this.p = p;
-    this.weight = p.random(20, 25);
+    this.weight = p.random(10, 40);
     this.dynamicWeight = 0;
     this.color = p.color(0);
     this.alpha = 1;

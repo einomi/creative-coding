@@ -1,8 +1,9 @@
 import p5 from 'p5';
+import niceColors from 'nice-color-palettes/1000.json';
 
 import Brush from '../brush/brush';
 
-const lineCount = 20;
+const lineCount = 12;
 const screens = [];
 
 const sketch = /** @param {import("p5")} p */ (p) => {
@@ -20,10 +21,15 @@ const sketch = /** @param {import("p5")} p */ (p) => {
 
   p.setup = () => {
     p.createCanvas(window.innerWidth, window.innerHeight, p.WEBGL);
+
+    // anti-aliasing
+    // p.noSmooth();
+    p.pixelDensity(3);
+
     // create a screen buffer
-    for (let i = 0; i < lineCount; i += 1) {
+    for (let i = 0; i <= lineCount; i += 1) {
       const screen = p.createGraphics(p.width, p.height);
-      screen.colorMode(p.HSB, 360, 100, 100, 100);
+      screen.pixelDensity(3);
       screens.push(screen);
     }
 
@@ -42,71 +48,46 @@ const sketch = /** @param {import("p5")} p */ (p) => {
     // p.drawingContext.scale(dpr, dpr);
     // // hsb color mode
 
+    p.background(255);
+
     p.colorMode(p.HSB, 360, 100, 100, 100);
 
     p.noLoop();
   };
 
-  // function drawScreens() {
-  //   screens.forEach((screen) => {
-  //     p.shader(shader);
-  //     shader.setUniform('uTexture', screen);
-  //     shader.setUniform('uTextureBrush', brushTexture);
-  //     p.rect(0, 0, p.width, p.height);
-  //   });
-  // }
-
   p.draw = () => {
-    const lineGap = 35;
-    const screenOffset = 100;
-    // screens[0].background(0);
-    p.background(0);
+    const screenOffset = 50;
 
-    for (let i = 0; i < lineCount; i += 1) {
+    function pickPallete() {
+      return niceColors[p.round(p.random(0, niceColors.length))];
+    }
+    const colors = [...pickPallete(), ...pickPallete(), ...pickPallete()];
+
+    for (let i = 0; i <= lineCount; i += 1) {
       // screens[i].background(100, 100, 100, 0.4);
+      // screens[i].colorMode(p.HSB, 360, 100, 100, 100);
       const brush = new Brush(screens[i]);
-      brush.setColor(
-        p.color(
-          p.random(50, 120),
-          p.random(50, 80),
-          p.random(20, 70),
-          p.random(10, 30)
-        )
-      );
+      brush.setColor(p.color(p.hue(colors[i % colors.length]), 50, 90, 100));
       brush.makeStroke(
-        p.createVector(screenOffset, screenOffset + i * lineGap),
         p.createVector(
-          p.width - screenOffset,
-          p.height - screenOffset - i * lineGap
+          p.random(screenOffset, p.width - screenOffset),
+          p.random(screenOffset, p.height - screenOffset)
+        ),
+        p.createVector(
+          p.random(screenOffset, p.width - screenOffset),
+          p.random(screenOffset, p.height - screenOffset)
         )
       );
-      const diffusionFactor = p.random(0.3, 1.5);
-      const periodFactor = p.random(10, 100);
+      const diffusionFactor = p.random(0.1, 1.2);
+      const periodFactor = p.random(10, 20);
       shader.setUniform('uTexture', screens[i]);
       shader.setUniform('uTextureBrush', brushTexture);
       shader.setUniform('uDiffusionFactor', diffusionFactor);
       shader.setUniform('uPeriodFactor', periodFactor);
       p.texture(screens[i]);
       p.shader(shader);
-
       p.rect(-p.width / 2, -p.height / 2, p.width, p.height);
     }
-
-    // for (let i = 0; i < lineCount; i += 1) {
-    //   const brush = new Brush(screen);
-    //   brush.setColor(
-    //     p.color(p.random(50, 300), 0, p.random(20, 60), p.random(10, 30))
-    //   );
-    //   brush.makeStroke(
-    //     p.createVector(p.width - screenOffset, screenOffset + i * lineGap),
-    //     p.createVector(
-    //       screenOffset,
-    //       p.height - screenOffset - lineCount * lineGap + lineGap + i * lineGap
-    //     )
-    //   );
-    // }
-
-    // drawScreens();
   };
 
   // screenshots
