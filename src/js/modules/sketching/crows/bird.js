@@ -31,6 +31,7 @@ class Bird {
     this.vy = 0;
 
     this.minDist = 200;
+    this.size = random.range(0.3, 1);
     this.pushFactor = random.range(0.15, 0.35);
     this.pullFactor = random.range(0.01, 0.02);
     this.dampFactor = random.range(0.9, 0.95);
@@ -52,13 +53,19 @@ class Bird {
 
   drawLeftWing() {
     this.drawWingStart();
-    this.context.lineTo(random.range(-20, -10), random.range(-40, -50));
+    this.context.lineTo(
+      random.range(-20, -10),
+      random.range(-40 * this.size, -50 * this.size)
+    );
     this.drawWingEnd();
   }
 
   drawRightWing() {
     this.drawWingStart();
-    this.context.lineTo(random.range(10, 40), random.range(-20, -10));
+    this.context.lineTo(
+      random.range(10, 40),
+      random.range(-20 * this.size, -10 * this.size)
+    );
     this.drawWingEnd();
   }
 
