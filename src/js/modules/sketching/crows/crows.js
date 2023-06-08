@@ -105,13 +105,11 @@ function sketch({ context, canvas, width, height }) {
   let circleRadius = 27;
   const fitRadius = birdSize;
 
-  // eslint-disable-next-line id-length
   for (let i = 0; i < circlesCount; i += 1) {
     const circumference = Math.PI * 2 * circleRadius;
     const numFit = i ? Math.floor(circumference / (fitRadius * 2)) : 1;
     const fitSlice = (Math.PI * 2) / numFit;
 
-    // eslint-disable-next-line id-length
     for (let j = 0; j < numFit; j += 1) {
       if (!random.chance(0.9 - i / circlesCount)) {
         continue;
@@ -135,10 +133,9 @@ function sketch({ context, canvas, width, height }) {
   }
 
   /** @param {SketchProps} args */
-  // eslint-disable-next-line no-shadow
-  return function render({ context, width, height }) {
-    context.fillStyle = '#000';
-    context.fillRect(0, 0, width, height);
+  return function render(args) {
+    args.context.fillStyle = '#000';
+    args.context.fillRect(0, 0, args.width, args.height);
     birds.forEach((bird) => bird.update());
   };
 }
