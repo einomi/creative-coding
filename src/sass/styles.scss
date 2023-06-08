@@ -15,3 +15,87 @@
 
 /***=== PAGES ===***/
 @import './pages/home';
+
+@keyframes piano {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 2000px 0;
+  }
+}
+
+@keyframes piano2 {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 1600px 0;
+  }
+}
+
+@keyframes text {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 600px 0;
+  }
+}
+
+.piano {
+  background-size: 1000px;
+  will-change: transform;
+}
+
+.piano1 {
+  animation: piano 70s linear infinite;
+  filter: brightness(1) contrast(0.8);
+  opacity: 0.9;
+}
+
+.piano2 {
+  animation: piano2 100s linear infinite;
+  background-size: 800px;
+  filter: saturate(0.9) brightness(1.2) contrast(0.8) hue-rotate(180deg);
+  mix-blend-mode: multiply;
+}
+
+.piano-text {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 3vw;
+  color: #020303;
+  cursor: default;
+  font-family: 'Inter', sans-serif, arial;
+  font-size: 17vw;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+
+  p {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  span {
+    display: block;
+    animation: text 50s linear infinite;
+    //filter: drop-shadow(0.01em -0.05em 0 #eee);
+    // add background image to text
+    background-clip: text;
+    background-image: url(/piano-tile.png);
+    background-position: center;
+    background-repeat: repeat;
+    background-size: 300px;
+    color: transparent;
+    filter: hue-rotate(180deg) brightness(0.1)
+      drop-shadow(0.01em -0.01em 0 #888);
+    opacity: 0;
+    will-change: transform;
+  }
+}

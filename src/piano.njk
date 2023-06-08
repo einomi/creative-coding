@@ -1,0 +1,19 @@
+{% extends './_layouts/base.njk' %}
+
+{% block content %}
+<div class="piano-container overflow-hidden fixed inset-0">
+  <div class="piano piano1 absolute inset-0 bg-repeat flex items-center justify-center" style="background-image: url('/piano-tile.png');">
+    <div class="piano piano2 absolute inset-0 bg-repeat flex items-center justify-center" style="background-image: url('/piano-tile2.png');">
+    </div>
+    {#    <p class="piano-text absolute uppercase text-black text-[145vh] font-bold left-0 top-[-30vh] leading-[150vh]" data-text>Imagine Being Creative</p> #}
+
+  </div>
+  <div class="absolute inset-0 flex items-center">
+      <div class="piano-text" data-text><p>Imagine</p> <p>Being</p> <p>Creative</p></div>
+  </div>
+  {% endblock %}
+
+  {% block scripts %}
+    <script src="{{ STATIC_PATH }}/js/piano.js"></script>
+  {% endblock %}
+

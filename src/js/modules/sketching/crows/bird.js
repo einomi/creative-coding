@@ -14,9 +14,6 @@ class Bird {
     this.context = context;
     this.cursor = cursor;
 
-    // const x = random.range(width * 0.2, width * 0.8);
-    // const y = random.range(height * 0.2, height * 0.8);
-
     this.initialX = x;
     this.initialY = y;
     this.x = x;

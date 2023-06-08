@@ -9,8 +9,7 @@ export function createAudio() {
     document.querySelector('[data-enter-button]')
   );
   enterButton.addEventListener('click', () => {
-    enterContainer.remove();
-    // audioEl.play();
+    enterContainer?.remove();
   });
 
   document.body.appendChild(audioEl);
