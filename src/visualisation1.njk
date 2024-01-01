@@ -1,0 +1,15 @@
+{% extends './_layouts/base.njk' %}
+
+{% block content %}
+  <div class="enter" data-enter>
+    <button class="enter__button" data-enter-button>Enter</button>
+  </div>
+  <audio src="/audio/blackhole.mp3" loop data-audio></audio>
+  <div class="page-center" data-page-center></div>
+  <canvas data-canvas></canvas>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ STATIC_PATH }}/js/visualisation1.js"></script>
+{% endblock %}
+

@@ -15,6 +15,7 @@ const entryPoints = {
     'src/js/modules/brush-test/brush-test.js'
   ),
   piano: path.resolve(__dirname, 'src/js/piano.js'),
+  visualisation1: path.resolve(__dirname, 'src/js/visualisation1.js'),
 };
 
 module.exports = {
